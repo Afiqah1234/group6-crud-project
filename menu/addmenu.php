@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Heaven Restaurant</title>
+</head>
+<body>
+
+<?php
+require 'config.php'; // include file connect to db
+include 'menu.php'; //include menu list from menu.php, you may edit accordingly
+
+ 
+  if(empty(trim(isset($_POST["menu"])))){
+	  
+
+        echo "<br><br><br>";
+    } else
+	{
+       	$item name = trim($_POST['item name']);
+		$price= trim($_POST['price']);
+                $category= trim($_POST['category']);
+		
+		//SQL, change into your table name and column
+       	$sql = "INSERT INTO customers (item name, price, category)
+			VALUES ('$item name','$price','$category')";	
+
+if ($conn->query($sql) === TRUE) {
+  echo "<br><br>New record created successfully";
+} else {
+  echo "Error: " . $sql . "<br>" . $conn->error;
+}
+
+$conn->close();
+        
+    	}
+?>
+
+<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+    <table>
+		<tr>
+			<td>
+				<label for="item name">Item Name:</label>
+				<input type="text" name="item name" required>
+			</td>
+		</tr>
+    
+		<tr>
+			<td>
+				<label for="price">Price:</label>
+				<input type="text" name="price" required>
+			</td>
+		</tr>
+                <tr>
+                        </td>
+                                <label for="category">Category:</label>
+                                <input type="text" name="category" required>
+                        </td>
+                </tr>
+
+		<tr>
+			<td>
+				<input type="submit" value="Submit">
+			</td>
+		</tr>
+		</table>
+
+</form>
+
+<?php
+
+include 'footer.php';
+?>
+
+</body>
+</html>
